@@ -4,6 +4,7 @@ import config
 class MyClient(discord.Client):
     async def on_ready(self):
         print("I just logged in")
+        phase = 0
 
     #wenn nachricht gesendet wird
     async def on_message(self, message):
