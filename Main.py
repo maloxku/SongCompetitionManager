@@ -1,4 +1,5 @@
 import discord
+import config
 
 class MyClient(discord.Client):
     async def on_ready(self):
@@ -33,4 +34,4 @@ class MyClient(discord.Client):
 
 
 client = MyClient()
-client.run("")
+client.run(config.token)
