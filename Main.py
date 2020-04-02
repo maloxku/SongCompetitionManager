@@ -2,6 +2,13 @@ import discord
 import config
 
 class MyClient(discord.Client):
+
+    def __init__(self):
+        super().__init__()
+        self.phase = 0
+        #Liste von Contest Membern
+        self.conmem = []
+
     async def on_ready(self):
         print("I just logged in")
         phase = 0
@@ -22,15 +29,12 @@ class MyClient(discord.Client):
         if message.content == "Hofmann, we need you!":
             await message.channel.send("Finally happens something")
             await message.channel.send("Well, who ever wants to join the song contest write: I'm in")
-            conmem = []                         #Liste von Contest Membern
-            phase = 1
-        if (phase == 1):
+            self.conmem.clear()                         
+            self.phase = 1
+        if (self.phase == 1):
             if message.content == "I'm in":
-                conmem.append(message.author)           #Autor zur Liste hinzufügen
-                member = str(message.author)            #Autor in einer Stringvariable speichern
-                for i in range(1,6):                    #entfernt die Zahlen und das # hinter dem Namen
-                    member.pop(-i)
-                message.channel.send(member + ", your in")
+                self.conmem.append(message.author)           #Autor zur Liste hinzufügen
+                await message.channel.send(message.author.mention + ", your in")
 
 
 
