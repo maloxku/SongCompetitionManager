@@ -13,28 +13,20 @@ class MyClient(discord.Client):
         print("I just logged in")
         phase = 0
 
-    #wenn nachricht gesendet wird
     async def on_message(self, message):
         if message.author == client.user:
             return
         if message.content == "rules":
             await message.channel.send("play a song \n wait \n vote \n hope")
-        if message.content.startswith("hello bot"):
-            await message.channel.send('Hello, whats up?')
-        if message.content.startswith("I vote for"):
-            wert_param = -3
-            vote = message.content.split(' ')[3]
-            await message.channel.send("You voted for " + vote)
-            await message.author.send("You got hacked!  you better vote for DuckBoss!")
-        if message.content == "Hofmann, we need you!":
-            await message.channel.send("Finally happens something")
-            await message.channel.send("Well, who ever wants to join the song contest write: I'm in")
-            self.conmem.clear()                         
+        if message.content == "Click here to get in:":
+            await message.add_reaction("💩")
+            self.conmem.clear()
             self.phase = 1
-        if (self.phase == 1):
-            if message.content == "I'm in":
-                self.conmem.append(message.author)           #Autor zur Liste hinzufügen
-                await message.channel.send(message.author.mention + ", your in")
+    async def on_reaction_add(self, reaction, user):
+        if (user == client.user):
+            return
+        await reaction.message.channel.send(str(user.mention) + ', your in')
+        self.conmem.append(user)
 
 
 
