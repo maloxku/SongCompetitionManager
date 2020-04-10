@@ -11,7 +11,6 @@ class MyClient(discord.Client):
 
     async def on_ready(self):
         print("I just logged in")
-        phase = 0
 
     async def on_message(self, message):
         if message.author == client.user:
@@ -22,11 +21,19 @@ class MyClient(discord.Client):
             await message.add_reaction("💩")
             self.conmem.clear()
             self.phase = 1
+
     async def on_reaction_add(self, reaction, user):
         if (user == client.user):
             return
         await reaction.message.channel.send(str(user.mention) + ', your in')
         self.conmem.append(user)
+
+    async def on_reaction_remove(self, reaction, user):
+        await reaction.message.channel.send(str(user.mention) + ', your out')
+        for i in self.conmem:
+            if (self.conmem[i] == user):      # warum funzt das nicht?
+                self.conmem.pop(i)
+
 
 
 
