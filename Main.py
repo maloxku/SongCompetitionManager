@@ -25,11 +25,11 @@ class MyClient(discord.Client):
     async def on_reaction_add(self, reaction, user):
         if (user == client.user):
             return
-        await reaction.message.channel.send(str(user.mention) + ', your in')
+        await reaction.message.channel.send(str(user.mention) + ', you\'re in')
         self.conmem.append(user)
 
     async def on_reaction_remove(self, reaction, user):
-        await reaction.message.channel.send(str(user.mention) + ', your out')
+        await reaction.message.channel.send(str(user.mention) + ', you\'re out')
         for i in self.conmem:
             if (self.conmem[i] == user):      # warum funzt das nicht?
                 self.conmem.pop(i)
