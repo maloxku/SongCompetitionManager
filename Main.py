@@ -30,10 +30,8 @@ class MyClient(discord.Client):
 
     async def on_reaction_remove(self, reaction, user):
         await reaction.message.channel.send(str(user.mention) + ', you\'re out')
-        for i in self.conmem:
-            if (self.conmem[i] == user):      # warum funzt das nicht?
-                self.conmem.pop(i)
-
+        if user in self.conmem:
+            self.conmem.remove(user)
 
 
 
